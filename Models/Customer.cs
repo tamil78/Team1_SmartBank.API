@@ -20,6 +20,14 @@ namespace Team1_SmartBank.API.Models
         [Phone]
         public string Phone { get; set; }
 
+        [Required]
+        [MinLength(6)]
+        public string Password { get; set; }
+
+        // ✅ ADD ROLE
+        [Required]
+        public string Role { get; set; }   // Admin / Manager / Customer
+
         public DateTime CreatedDate { get; set; } = DateTime.Now;
     }
 }

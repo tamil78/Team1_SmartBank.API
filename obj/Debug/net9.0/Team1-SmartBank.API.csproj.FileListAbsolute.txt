@@ -149,6 +149,7 @@ C:\Users\thengata\Documents\Dot_Net_Projects\Team1-SmartBank.API\Team1-SmartBank
 C:\Users\thengata\Documents\Dot_Net_Projects\Team1-SmartBank.API\Team1-SmartBank.API\obj\Debug\net9.0\Team1-SmartBank.API.csproj.CoreCompileInputs.cache
 C:\Users\thengata\Documents\Dot_Net_Projects\Team1-SmartBank.API\Team1-SmartBank.API\obj\Debug\net9.0\Team1-SmartBank.API.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\thengata\Documents\Dot_Net_Projects\Team1-SmartBank.API\Team1-SmartBank.API\obj\Debug\net9.0\Team1-SmartBank.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\thengata\Documents\Dot_Net_Projects\Team1-SmartBank.API\Team1-SmartBank.API\obj\Debug\net9.0\Team1-SmartBank.API.sourcelink.json
 C:\Users\thengata\Documents\Dot_Net_Projects\Team1-SmartBank.API\Team1-SmartBank.API\obj\Debug\net9.0\rjimswa.dswa.cache.json
 C:\Users\thengata\Documents\Dot_Net_Projects\Team1-SmartBank.API\Team1-SmartBank.API\obj\Debug\net9.0\rjsmrazor.dswa.cache.json
 C:\Users\thengata\Documents\Dot_Net_Projects\Team1-SmartBank.API\Team1-SmartBank.API\obj\Debug\net9.0\rjsmcshtml.dswa.cache.json

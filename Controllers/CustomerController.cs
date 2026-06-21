@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Team1_SmartBank.API.Data;
+using Team1_SmartBank.API.Interfaces;
 using Team1_SmartBank.API.Models;
 using Team1_SmartBank.API.DTOs;
 
@@ -9,18 +9,18 @@ namespace Team1_SmartBank.API.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ICustomerService _service;
 
-        public CustomerController(AppDbContext context)
+        public CustomerController(ICustomerService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // ✅ GET ALL CUSTOMERS
         [HttpGet]
         public IActionResult GetAll()
         {
-            var customers = _context.Customers.ToList();
+            var customers = _service.GetCustomers();
             return Ok(customers);
         }
 
@@ -28,7 +28,7 @@ namespace Team1_SmartBank.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var customer = _context.Customers.Find(id);
+            var customer = _service.GetCustomer(id);
 
             if (customer == null)
                 return NotFound("Customer not found");
@@ -36,28 +36,33 @@ namespace Team1_SmartBank.API.Controllers
             return Ok(customer);
         }
 
-        // ✅ CREATE CUSTOMER
+        // ✅ REGISTER CUSTOMER ✅ (USE RegisterDto)
         [HttpPost]
-        public IActionResult Create(CustomerDto dto)
+        public IActionResult Register(RegisterDto dto)
         {
             var customer = new Customer
             {
                 FullName = dto.FullName,
                 Email = dto.Email,
-                Phone = dto.Phone
+                Phone = dto.Phone,
+                Password = dto.Password,   // (later: hash)
+                Role = dto.Role            // ✅ added role
             };
 
-            _context.Customers.Add(customer);
-            _context.SaveChanges();
+            _service.CreateCustomer(customer);
 
-            return Ok(customer);
+            return Ok(new
+            {
+                message = "Customer registered successfully",
+                customer
+            });
         }
 
         // ✅ UPDATE CUSTOMER
         [HttpPut]
         public IActionResult Update(Customer customer)
         {
-            var existing = _context.Customers.Find(customer.CustomerId);
+            var existing = _service.GetCustomer(customer.CustomerId);
 
             if (existing == null)
                 return NotFound("Customer not found");
@@ -65,23 +70,24 @@ namespace Team1_SmartBank.API.Controllers
             existing.FullName = customer.FullName;
             existing.Email = customer.Email;
             existing.Phone = customer.Phone;
+            existing.Password = customer.Password;
+            existing.Role = customer.Role;   // ✅ UPDATE ROLE ALSO
 
-            _context.SaveChanges();
+            _service.UpdateCustomer(existing);
 
-            return Ok(existing);
+            return Ok("Customer updated successfully");
         }
 
         // ✅ DELETE CUSTOMER
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var customer = _context.Customers.Find(id);
+            var existing = _service.GetCustomer(id);
 
-            if (customer == null)
+            if (existing == null)
                 return NotFound("Customer not found");
 
-            _context.Customers.Remove(customer);
-            _context.SaveChanges();
+            _service.DeleteCustomer(id);
 
             return Ok("Customer deleted successfully");
         }
